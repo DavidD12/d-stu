@@ -31,29 +31,9 @@ impl Entry {
         5
     }
 
-    fn print_header(&self, width: usize, position: Position) {
-        let left = match position {
-            Position::First => "┌",
-            Position::Middle => "├",
-            Position::Last => {
-                if self.messages.is_empty() {
-                    "└"
-                } else {
-                    "├"
-                }
-            }
-        };
-        let right = match position {
-            Position::First => "─┐",
-            Position::Middle => "─┤",
-            Position::Last => {
-                if self.messages.is_empty() {
-                    "─┘"
-                } else {
-                    "─┤"
-                }
-            }
-        };
+    fn print_header(&self, width: usize, first: bool, last: bool) {
+        let left = if first { "┌" } else { "├" };
+        let right = if first { "─┐" } else { "─┤" };
         let mut w: usize = 1 + Self::padding() + 2 + 2 + 2;
 
         let mut s = left.to_string();
@@ -91,7 +71,7 @@ impl Entry {
             s,
             termion::style::Reset,
         );
-        if position == Position::Last || !self.messages.is_empty() {
+        if last || !self.messages.is_empty() {
             println!("{}", self.status.as_str());
         } else {
             println!(
@@ -104,15 +84,11 @@ impl Entry {
         }
     }
 
-    fn print_botton(width: usize, position: Position) {
-        let left = match position {
-            Position::Last => "└",
-            _ => "├",
-        };
-        let right = match position {
-            Position::Last => "┘",
-            _ => "┤",
-        };
+    fn print_botton(width: usize) {
+        let left = "└";
+        let right = "┘";
+        // let left = if last { "└" } else { "├" };
+        // let right = if last { "┘" } else { "┤" };
         let mut s = left.to_string();
         for _ in 0..width - 2 {
             s.push_str("─");
@@ -127,15 +103,15 @@ impl Entry {
         );
     }
 
-    pub fn print(&self, width: usize, position: Position) {
-        self.print_header(width, position);
+    pub fn print(&self, width: usize, first: bool, last: bool) {
+        self.print_header(width, first, last);
         if !self.messages.is_empty() {
             for message in self.messages.iter() {
                 message.print(width);
             }
         }
-        if position == Position::Last {
-            Self::print_botton(width, position);
+        if last {
+            Self::print_botton(width);
         }
     }
 }

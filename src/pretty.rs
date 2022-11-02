@@ -34,30 +34,18 @@ impl Pretty {
         let width = Self::width();
 
         print!("{}{}", termion::clear::All, termion::cursor::Goto(1, 1));
-        if self.entries.is_empty() {
-            println!();
-            return;
-        }
 
-        let first = self.entries.first().unwrap();
-        first.print(width, Position::First);
+        if let Some((first, others)) = self.entries.split_first() {
+            first.print(width, true, others.is_empty());
 
-        if self.entries.len() > 2 {
-            for entriy in self.entries[1..self.entries.len() - 1].iter() {
-                entriy.print(width, Position::Middle);
+            if let Some((last, others)) = others.split_last() {
+                for entry in others {
+                    entry.print(width, false, false);
+                }
+                last.print(width, false, true);
             }
-        }
-
-        if self.entries.len() > 1 {
-            let last = self.entries.last().unwrap();
-            last.print(width, Position::Last);
+        } else {
+            println!();
         }
     }
-}
-
-#[derive(Copy, Clone, PartialEq, Eq)]
-pub enum Position {
-    First,
-    Middle,
-    Last,
 }
