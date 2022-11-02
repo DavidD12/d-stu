@@ -85,7 +85,6 @@ constraint cst2 = b => j > 0"#,
         vec![message],
     );
     pretty.add(item);
-    pretty.display();
 
     let item = Entry::new(
         Status::Failure,
@@ -139,5 +138,5 @@ constraint cst2 = b => j > 0"#,
         ],
     );
     pretty.add(item);
-    pretty.display();
+    pretty.print();
 }

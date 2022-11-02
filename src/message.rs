@@ -43,7 +43,7 @@ impl Message {
         }
     }
 
-    pub fn display(&self, width: usize) {
+    pub fn print(&self, width: usize) {
         let mut text = "".to_string();
 
         if let Some(title) = &self.title {

@@ -30,7 +30,7 @@ impl Pretty {
         termion::color::White.fg_str()
     }
 
-    pub fn display(&self) {
+    pub fn print(&self) {
         let width = Self::width();
 
         print!("{}{}", termion::clear::All, termion::cursor::Goto(1, 1));
@@ -40,17 +40,17 @@ impl Pretty {
         }
 
         let first = self.entries.first().unwrap();
-        first.display(width, Position::First);
+        first.print(width, Position::First);
 
         if self.entries.len() > 2 {
             for entriy in self.entries[1..self.entries.len() - 1].iter() {
-                entriy.display(width, Position::Middle);
+                entriy.print(width, Position::Middle);
             }
         }
 
         if self.entries.len() > 1 {
             let last = self.entries.last().unwrap();
-            last.display(width, Position::Last);
+            last.print(width, Position::Last);
         }
     }
 }

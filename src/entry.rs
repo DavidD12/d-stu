@@ -31,7 +31,7 @@ impl Entry {
         5
     }
 
-    fn display_header(&self, width: usize, position: Position) {
+    fn print_header(&self, width: usize, position: Position) {
         let left = match position {
             Position::First => "┌",
             Position::Middle => "├",
@@ -104,7 +104,7 @@ impl Entry {
         }
     }
 
-    fn display_botton(width: usize, position: Position) {
+    fn print_botton(width: usize, position: Position) {
         let left = match position {
             Position::Last => "└",
             _ => "├",
@@ -127,13 +127,13 @@ impl Entry {
         );
     }
 
-    pub fn display(&self, width: usize, position: Position) {
-        self.display_header(width, position);
+    pub fn print(&self, width: usize, position: Position) {
+        self.print_header(width, position);
         if !self.messages.is_empty() {
             for message in self.messages.iter() {
-                message.display(width);
+                message.print(width);
             }
-            Self::display_botton(width, position);
+            Self::print_botton(width, position);
         }
     }
 }
