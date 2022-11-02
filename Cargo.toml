@@ -1,0 +1,28 @@
+[package]
+name = "d-stu"
+version = "0.1.0"
+edition = "2021"
+authors = ["David Doose <David.Doose@gmail.com>"]
+license = "LGPL-3.0-only"
+description = "Display Stuff Library"
+repository = "https://github.com/DavidD12/d-stu"
+readme = "README.md"
+keywords = ["terminal", "console", "ui"]
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+    "README.md"
+]
+
+[dependencies]
+terminal_size = "0.2.1"
+termion = "2.0.1"
+textwrap = "0.16"
+
+[lib]
+name = "d_stuff"
+path = "src/lib.rs"
+
+[[bin]]
+name = "main"
+path = "bin/main.rs"
