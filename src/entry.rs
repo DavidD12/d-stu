@@ -133,6 +133,8 @@ impl Entry {
             for message in self.messages.iter() {
                 message.print(width);
             }
+        }
+        if position == Position::Last {
             Self::print_botton(width, position);
         }
     }
