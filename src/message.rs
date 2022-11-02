@@ -71,12 +71,14 @@ impl Message {
 
         for line in lines {
             let line = line.to_string();
-            Self::print_sep();
-            Self::print_padding();
-            self.print_message(line.as_str());
-            Self::print_padding();
-            Self::fill(w - line.len());
-            Self::print_sep();
+            if !line.is_empty() {
+                Self::print_sep();
+                Self::print_padding();
+                self.print_message(line.as_str());
+                Self::print_padding();
+                Self::fill(w - line.len());
+                Self::print_sep();
+            }
         }
 
         println!();
