@@ -80,7 +80,5 @@ impl Message {
                 Self::print_sep();
             }
         }
-
-        println!();
     }
 }
